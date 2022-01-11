@@ -4,29 +4,39 @@ Building an 2-way sync against a REST API in Python for a coding challenge. It u
 
 ## Docs
 
-The full instructions are available [here](docs/instructions).
+The full instructions are available [here](docs/instructions.md).
 
 ## Installation
 
-Start by installing the required packages from the `requirements.txt` file.
+To use this package, you need to run Python 3.7 or newer.
+
+Start by installing the required packages from the `requirements.txt` file:
 
 ```sh
 pip install -r requirements.txt
 ```
 
-Then, make sure to add the API endpoint in the `.env` file.
+Then, make sure to add the API endpoint in the `.env` file:
 
 ```env
 API_URL=https://SECRET.mockapi.io/api/v1
 ```
 
+Last, start your local MongoDB instance:
+
+```sh
+mongod
+```
+
 ## Usage
 
-To use this package, you need to run Python 3.7 or newer, as well as a running MongoDB instance locally.
+You can run Dosync with the following command:
 
 ```sh
 python3 start.py
 ```
+
+If you need to force the syncronization again, you can remove the attributes in the `metadata` collection on your MongoDB instance.
 
 ## Notes
 

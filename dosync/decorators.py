@@ -38,17 +38,25 @@ def should_update(function):
         if self.last_updated_at and updated_at < self.last_updated_at:
             return False
             
-        # Remove unecessary keys
-        kwargs['data'].pop("_id", None)
-        kwargs['data'].pop("ads", None)
-        kwargs['data'].pop("adsets", None)
-        kwargs['data'].pop("keywords", None)
-
-        # Convert date fields to ISO format
+        # Convert MongoDB date fields back to ISO format
         date_fields = ['createdAt', 'updatedAt']
         for date_field in date_fields:
             if kwargs['data'].get(date_field) and isinstance(kwargs['data'].get(date_field), datetime.date):
                 kwargs['data'][date_field] = kwargs['data'][date_field].isoformat(timespec='milliseconds') + "Z"
+
+        return function(self, *args, **kwargs)
+
+    return wrapper
+
+
+def remove_nested(function):
+    """Remove nested attributes which are not present on the remote API"""
+    @wraps(function)
+    def wrapper(self, *args, **kwargs):
+        kwargs['data'].pop("_id", None)
+        kwargs['data'].pop("ads", None)
+        kwargs['data'].pop("adsets", None)
+        kwargs['data'].pop("keywords", None)
 
         return function(self, *args, **kwargs)
 

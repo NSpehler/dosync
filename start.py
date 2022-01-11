@@ -26,7 +26,7 @@ def start():
 @database
 def sync_down(client):
     print(color.BOLD + "⏬ Sync remote API to database" + color.END)
-    
+
     manager = DosyncManager()
     manager.last_updated_at = manager.sync_down()
     campaigns = client.get_campaigns()

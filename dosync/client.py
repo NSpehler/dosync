@@ -1,11 +1,9 @@
 import os
-import json
 import requests
 
-from datetime import datetime
 from dataclasses import dataclass
 
-from dosync.decorators import delay, should_update
+from dosync.decorators import delay, remove_nested, should_update
 
 
 @dataclass
@@ -61,12 +59,13 @@ class DosyncClient:
 
 
     @should_update
+    @remove_nested
     def update_campaign(self, campaign_id, data):
         """Update specific campaign by ID"""
         print("⏫ Sync campaign {} to remote API".format(campaign_id))
         path = "campaigns/{}".format(campaign_id)
         return self.query(method="PUT", path=path, data=data)
-        
+
 
     def get_adsets(self, campaign_id):
         """Get all adsets for a specific campaign ID"""
@@ -75,6 +74,7 @@ class DosyncClient:
 
 
     @should_update
+    @remove_nested
     def update_adset(self, campaign_id, adset_id, data):
         """Update specific adset by ID"""
         print("⏫ Sync adset {} to remote API".format(adset_id))
@@ -89,6 +89,7 @@ class DosyncClient:
 
 
     @should_update
+    @remove_nested
     def update_keyword(self, campaign_id, adset_id, keyword_id, data):
         """Update specific keyword by ID"""
         print("⏫ Sync keyword {} to remote API".format(keyword_id))
@@ -103,6 +104,7 @@ class DosyncClient:
 
 
     @should_update
+    @remove_nested
     def update_ad(self, campaign_id, adset_id, ad_id, data):
         """Update specific ad by ID"""
         print("⏫ Sync ad {} to remote API".format(ad_id))
