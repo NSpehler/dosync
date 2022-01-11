@@ -38,6 +38,14 @@ python3 start.py
 
 If you need to force the syncronization again, you can remove the attributes in the `metadata` collection on your MongoDB instance.
 
+## Testing
+
+To run the tests, run the following command from the root directory:
+
+```sh
+pytest
+```
+
 ## Notes
 
 ### Nested `adsets`, `keywords` and `ads`
@@ -61,7 +69,7 @@ We're facing an issue where MockAPI.io seems to be converting all integers to st
 ## Improvement ideas
 
 - Batch update in database to reduce number of write operations
-- Add more unit tests for improved coverage
+- Add more unit tests for improved coverage, more particularly for the upstream sync as we have no test API endpoint for now
 
 ## Meta
 
